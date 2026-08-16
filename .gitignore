@@ -1,0 +1,32 @@
+# .NET build artifacts
+**/bin/
+**/obj/
+
+# Node and Angular build artifacts
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+
+# IDE and editor settings
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+**/appsettings.Local.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local architecture working document
+/PLANO_ARQUITETURA_KORP.md
