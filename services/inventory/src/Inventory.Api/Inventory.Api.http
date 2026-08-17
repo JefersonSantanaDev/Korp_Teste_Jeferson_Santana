@@ -1,6 +1,33 @@
-@Inventory.Api_HostAddress = http://localhost:5123
+@InventoryApi_HostAddress = http://localhost:5001
+@ProductId = 00000000-0000-0000-0000-000000000000
 
-GET {{Inventory.Api_HostAddress}}/weatherforecast/
+POST {{InventoryApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "code": "PROD-001",
+  "description": "Teclado Mecânico",
+  "stock": 10
+}
+
+###
+
+GET {{InventoryApi_HostAddress}}/api/products
 Accept: application/json
+
+###
+
+GET {{InventoryApi_HostAddress}}/api/products/{{ProductId}}
+Accept: application/json
+
+###
+
+GET {{InventoryApi_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{InventoryApi_HostAddress}}/swagger/index.html
+Accept: text/html
 
 ###

@@ -1,6 +1,11 @@
-@Billing.Api_HostAddress = http://localhost:5067
+@BillingApi_HostAddress = http://localhost:5002
 
-GET {{Billing.Api_HostAddress}}/weatherforecast/
+GET {{BillingApi_HostAddress}}/openapi/v1.json
 Accept: application/json
+
+###
+
+GET {{BillingApi_HostAddress}}/swagger/index.html
+Accept: text/html
 
 ###

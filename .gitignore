@@ -30,3 +30,9 @@ Thumbs.db
 
 # Local architecture working document
 /PLANO_ARQUITETURA_KORP.md
+
+# Local AI agent configuration
+/.agents/
+/skills-lock.json
+/AGENTS.md
+/CLAUDE.md
