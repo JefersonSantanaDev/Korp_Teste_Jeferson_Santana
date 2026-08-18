@@ -11,4 +11,17 @@ public interface IInventoryClient
     Task<IReadOnlyList<InventoryProductResponse>> GetProductsAsync(
         IReadOnlyCollection<Guid> productIds,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Deducts stock for all items atomically and idempotently. Returns the
+    /// Inventory-reported status ("processed" or "already_processed") — both
+    /// represent success from the caller's point of view. Throws
+    /// <see cref="Common.Errors.InsufficientStockException"/> on a stock conflict
+    /// and <see cref="Common.Errors.InventoryUnavailableException"/> when
+    /// Inventory cannot be reached or times out.
+    /// </summary>
+    Task<string> DeductStockAsync(
+        Guid operationId,
+        IReadOnlyList<StockDeductionItem> items,
+        CancellationToken cancellationToken);
 }

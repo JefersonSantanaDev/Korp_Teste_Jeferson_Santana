@@ -46,10 +46,18 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
             StatusCodes.Status404NotFound,
             "Product not found",
             ex.Message),
+        InsufficientStockException ex => new ApiError(
+            StatusCodes.Status409Conflict,
+            "Insufficient stock",
+            ex.Message),
         InventoryUnavailableException => new ApiError(
             StatusCodes.Status503ServiceUnavailable,
             "Inventory unavailable",
             "The inventory service is temporarily unavailable. Please try again."),
+        InvalidOperationException ex => new ApiError(
+            StatusCodes.Status409Conflict,
+            "Invalid invoice operation",
+            ex.Message),
         ArgumentException => new ApiError(
             StatusCodes.Status400BadRequest,
             "Invalid invoice data",

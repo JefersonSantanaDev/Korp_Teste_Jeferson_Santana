@@ -20,4 +20,8 @@ export class InvoicesService {
   create(request: CreateInvoiceRequest): Observable<Invoice> {
     return this.http.post<Invoice>(this.baseUrl, request);
   }
+
+  close(id: string): Observable<Invoice> {
+    return this.http.post<Invoice>(`${this.baseUrl}/${id}/close`, {});
+  }
 }

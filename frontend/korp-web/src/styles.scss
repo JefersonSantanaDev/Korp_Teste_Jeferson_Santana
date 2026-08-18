@@ -26,3 +26,13 @@ body {
   box-shadow: 0 0 0 3px var(--color-primary-soft);
   border-radius: var(--radius-sm);
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: var(--color-canvas);
+  }
+}

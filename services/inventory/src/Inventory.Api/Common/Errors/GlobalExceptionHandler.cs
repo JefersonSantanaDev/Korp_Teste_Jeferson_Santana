@@ -55,6 +55,14 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
             StatusCodes.Status409Conflict,
             "Product code already exists",
             "A product with the provided code already exists."),
+        ProductNotFoundException ex => new ApiError(
+            StatusCodes.Status404NotFound,
+            "Product not found",
+            ex.Message),
+        InsufficientStockException ex => new ApiError(
+            StatusCodes.Status409Conflict,
+            "Insufficient stock",
+            ex.Message),
         ArgumentException => new ApiError(
             StatusCodes.Status400BadRequest,
             "Invalid product data",

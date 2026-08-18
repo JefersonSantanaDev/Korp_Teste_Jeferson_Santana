@@ -36,5 +36,20 @@
         }
       </tbody>
     </table>
+
+    @if (invoice.status === 'Open') {
+      <div class="form__actions no-print">
+        <button type="button" class="btn btn--primary" [disabled]="closing()" (click)="close()">
+          {{ closing() ? 'Processando nota...' : 'Imprimir nota' }}
+        </button>
+      </div>
+    }
+
+    @if (closeErrorMessage(); as message) {
+      <div class="alert alert--danger no-print" role="alert">
+        <p>{{ message }}</p>
+        <button type="button" class="btn btn--secondary" (click)="close()">Tentar novamente</button>
+      </div>
+    }
   }
 </section>
