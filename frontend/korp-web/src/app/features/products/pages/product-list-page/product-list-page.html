@@ -1,0 +1,39 @@
+<section class="page">
+  <header class="page__header">
+    <h1 class="page__title">Produtos</h1>
+    <a class="btn btn--primary" routerLink="novo">+ Novo produto</a>
+  </header>
+
+  @if (loading()) {
+    <p class="page__state" role="status">Carregando produtos...</p>
+  } @else if (errorMessage(); as message) {
+    <div class="alert alert--danger" role="alert">
+      <p>{{ message }}</p>
+      <button type="button" class="btn btn--secondary" (click)="reload()">Tentar novamente</button>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="empty-state">
+      <p>Nenhum produto cadastrado.</p>
+      <a class="btn btn--primary" routerLink="novo">+ Novo produto</a>
+    </div>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Descrição</th>
+          <th scope="col" class="table__col--numeric">Estoque</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products(); track product.id) {
+          <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.description }}</td>
+            <td class="table__col--numeric">{{ product.stock }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

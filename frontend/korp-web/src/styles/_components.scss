@@ -1,0 +1,181 @@
+// Shared UI primitives — see ../../DESIGN.md §4 Componentes.
+
+.page {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.page--narrow {
+  max-width: 480px;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.page__title {
+  font-size: var(--font-display-lg-size);
+  line-height: var(--font-display-lg-line);
+  font-weight: var(--font-display-lg-weight);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.page__state {
+  color: var(--color-ink-muted);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-family: var(--font-family-base);
+  font-size: var(--font-button-size);
+  line-height: var(--font-button-line);
+  font-weight: var(--font-button-weight);
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.btn--secondary {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border-color: var(--color-border-strong);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-canvas);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.table th,
+.table td {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+  font-size: var(--font-caption-size);
+  line-height: var(--font-caption-line);
+  font-weight: var(--font-caption-weight);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--color-ink-muted);
+  background: var(--color-canvas-soft);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table__col--numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-body-tabular-weight);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-2xl);
+  background: var(--color-canvas);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--color-ink-secondary);
+}
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-body-size);
+}
+
+.alert--danger {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-fg);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  background: var(--color-canvas);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field label {
+  font-size: var(--font-caption-size);
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+}
+
+.field input {
+  font-family: var(--font-family-base);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line);
+  color: var(--color-ink);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-canvas);
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.field__error {
+  margin: 0;
+  font-size: var(--font-caption-size);
+  color: var(--color-danger-fg);
+}
+
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}

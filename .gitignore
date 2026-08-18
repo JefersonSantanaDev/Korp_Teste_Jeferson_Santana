@@ -36,3 +36,7 @@ Thumbs.db
 /skills-lock.json
 /AGENTS.md
 /CLAUDE.md
+/.claude/skills/
+
+# Local working docs
+/docs/

@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'styles/tokens';
+@use 'styles/components';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line);
+  color: var(--color-ink);
+  background: var(--color-canvas-soft);
+  font-feature-settings: 'tnum' 0;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
