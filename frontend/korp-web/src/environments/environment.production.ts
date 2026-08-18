@@ -4,4 +4,5 @@
 export const environment = {
   production: true,
   inventoryApiBaseUrl: 'http://localhost:5001/api',
+  billingApiBaseUrl: 'http://localhost:5002/api',
 };

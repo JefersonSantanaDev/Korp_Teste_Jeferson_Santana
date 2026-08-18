@@ -10,6 +10,7 @@ const FIELD_LABELS_PT: Record<string, string> = {
   Stock: 'Saldo',
   Quantity: 'Quantidade',
   ProductId: 'Produto',
+  Items: 'Itens',
 };
 
 /** Maps an API error response into a contextual, Portuguese, user-facing message. */

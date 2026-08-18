@@ -1,0 +1,45 @@
+<section class="page">
+  <header class="page__header">
+    <h1 class="page__title">Notas Fiscais</h1>
+    <a class="btn btn--primary" routerLink="nova">+ Nova nota</a>
+  </header>
+
+  @if (loading()) {
+    <p class="page__state" role="status">Carregando notas...</p>
+  } @else if (errorMessage(); as message) {
+    <div class="alert alert--danger" role="alert">
+      <p>{{ message }}</p>
+      <button type="button" class="btn btn--secondary" (click)="reload()">Tentar novamente</button>
+    </div>
+  } @else if (invoices().length === 0) {
+    <div class="empty-state">
+      <p>Nenhuma nota cadastrada.</p>
+      <a class="btn btn--primary" routerLink="nova">+ Nova nota</a>
+    </div>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Número</th>
+          <th scope="col">Status</th>
+          <th scope="col">Data</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (invoice of invoices(); track invoice.id) {
+          <tr>
+            <td class="table__col--numeric">{{ formatNumber(invoice.number) }}</td>
+            <td>
+              <span class="badge" [class.badge--open]="invoice.status === 'Open'" [class.badge--closed]="invoice.status === 'Closed'">
+                {{ invoice.status === 'Open' ? 'Aberta' : 'Fechada' }}
+              </span>
+            </td>
+            <td>{{ invoice.createdAt | date: 'dd/MM/yyyy' }}</td>
+            <td><a [routerLink]="[invoice.id]">Visualizar</a></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

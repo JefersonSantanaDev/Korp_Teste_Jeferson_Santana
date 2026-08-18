@@ -1,0 +1,82 @@
+<section class="page">
+  <header class="page__header">
+    <h1 class="page__title">Nova nota</h1>
+  </header>
+
+  @if (productsLoading()) {
+    <p class="page__state" role="status">Carregando produtos...</p>
+  } @else if (productsErrorMessage(); as message) {
+    <div class="alert alert--danger" role="alert">{{ message }}</div>
+  } @else if (products().length === 0) {
+    <div class="empty-state">
+      <p>Nenhum produto cadastrado. Cadastre um produto antes de criar uma nota.</p>
+      <a class="btn btn--primary" routerLink="/produtos/novo">+ Novo produto</a>
+    </div>
+  } @else {
+    <div class="form" [formGroup]="addItemForm">
+      <div class="field">
+        <label for="productId">Produto</label>
+        <select id="productId" formControlName="productId">
+          <option value="" disabled>Selecione um produto</option>
+          @for (product of products(); track product.id) {
+            <option [value]="product.id">{{ product.code }} — {{ product.description }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="quantity">Quantidade</label>
+        <input
+          id="quantity"
+          type="number"
+          min="1"
+          step="1"
+          formControlName="quantity"
+          (keydown.enter)="addItem()"
+        />
+      </div>
+
+      @if (addItemError(); as message) {
+        <p class="field__error" role="alert">{{ message }}</p>
+      }
+
+      <div class="form__actions form__actions--start">
+        <button type="button" class="btn btn--secondary" (click)="addItem()">Adicionar</button>
+      </div>
+    </div>
+
+    @if (items().length > 0) {
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Produto</th>
+            <th scope="col" class="table__col--numeric">Quantidade</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items(); track item.productId) {
+            <tr>
+              <td>{{ item.productCode }} — {{ item.productDescription }}</td>
+              <td class="table__col--numeric">{{ item.quantity }}</td>
+              <td>
+                <button type="button" class="btn btn--secondary" (click)="removeItem(item.productId)">Remover</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    @if (errorMessage(); as message) {
+      <div class="alert alert--danger" role="alert">{{ message }}</div>
+    }
+
+    <div class="form__actions">
+      <a class="btn btn--secondary" routerLink="/notas">Cancelar</a>
+      <button type="button" class="btn btn--primary" [disabled]="items().length === 0 || saving()" (click)="submit()">
+        {{ saving() ? 'Criando...' : 'Criar nota' }}
+      </button>
+    </div>
+  }
+</section>

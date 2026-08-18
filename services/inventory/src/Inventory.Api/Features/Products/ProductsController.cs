@@ -1,6 +1,7 @@
 using Inventory.Api.Data;
 using Inventory.Api.Domain;
 using Inventory.Api.Features.Products.CreateProduct;
+using Inventory.Api.Features.Products.LookupProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,5 +80,34 @@ public sealed class ProductsController(
         }
 
         return Ok(product);
+    }
+
+    /// <summary>
+    /// Batch product snapshot lookup used by Billing when creating an invoice,
+    /// avoiding one HTTP round-trip per item. Products that do not exist are
+    /// simply absent from the response; the caller determines what is missing.
+    /// </summary>
+    [HttpPost("lookup")]
+    [ProducesResponseType<IReadOnlyList<ProductResponse>>(StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyList<ProductResponse>>> Lookup(
+        LookupProductsRequest request,
+        CancellationToken cancellationToken)
+    {
+        if (request.ProductIds.Count == 0)
+        {
+            return Ok(Array.Empty<ProductResponse>());
+        }
+
+        var products = await dbContext.Products
+            .AsNoTracking()
+            .Where(product => request.ProductIds.Contains(product.Id))
+            .Select(product => new ProductResponse(
+                product.Id,
+                product.Code,
+                product.Description,
+                product.Stock))
+            .ToListAsync(cancellationToken);
+
+        return Ok(products);
     }
 }

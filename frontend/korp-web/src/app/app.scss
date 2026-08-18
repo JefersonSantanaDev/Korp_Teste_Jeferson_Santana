@@ -20,6 +20,11 @@
   color: var(--color-ink);
 }
 
+.shell__nav {
+  display: flex;
+  gap: var(--space-xl);
+}
+
 .shell__nav a {
   color: var(--color-ink-secondary);
   text-decoration: none;

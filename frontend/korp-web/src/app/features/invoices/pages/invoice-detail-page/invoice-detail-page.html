@@ -1,0 +1,40 @@
+<section class="page">
+  @if (loading()) {
+    <p class="page__state" role="status">Carregando nota...</p>
+  } @else if (errorMessage(); as message) {
+    <div class="alert alert--danger" role="alert">{{ message }}</div>
+  } @else if (invoice(); as invoice) {
+    <header class="page__header">
+      <h1 class="page__title">Nota Fiscal #{{ formatNumber(invoice.number) }}</h1>
+      <span class="badge" [class.badge--open]="invoice.status === 'Open'" [class.badge--closed]="invoice.status === 'Closed'">
+        {{ invoice.status === 'Open' ? 'Aberta' : 'Fechada' }}
+      </span>
+    </header>
+
+    <p class="page__state">
+      Criada em {{ invoice.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+      @if (invoice.closedAt) {
+        · Fechada em {{ invoice.closedAt | date: 'dd/MM/yyyy HH:mm' }}
+      }
+    </p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Descrição</th>
+          <th scope="col" class="table__col--numeric">Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of invoice.items; track item.productId) {
+          <tr>
+            <td>{{ item.productCode }}</td>
+            <td>{{ item.productDescription }}</td>
+            <td class="table__col--numeric">{{ item.quantity }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
