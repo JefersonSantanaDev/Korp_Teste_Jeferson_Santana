@@ -34,6 +34,14 @@ builder.Services.AddDbContext<InventoryDbContext>(options =>
 
 var app = builder.Build();
 
+// Applies pending migrations on every startup so `docker compose up --build`
+// works against an empty database without a separate manual migration step.
+using (var migrationScope = app.Services.CreateScope())
+{
+    var dbContext = migrationScope.ServiceProvider.GetRequiredService<InventoryDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
+
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
@@ -55,3 +63,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+/// <summary>Exposed so integration tests can host this API via <c>WebApplicationFactory&lt;Program&gt;</c>.</summary>
+public partial class Program;
